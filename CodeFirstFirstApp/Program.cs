@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeFirstFirstApp.TPT;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -80,24 +81,53 @@ namespace CodeFirstFirstApp
 
             //#endregion 3.0 更新记录
 
+            //using (var context = new Context())
+            //{
+            //    #region 6.0 一对多关系
+
+            //    var donator = new Donator
+            //    {
+            //        Amount = 6,
+            //        Name = "键盘里的鼠标",
+            //        DonateDate = DateTime.Parse("2016-4-13"),
+            //    };
+            //    donator.PayWays.Add(new PayWay { Name = "支付宝" });
+            //    donator.PayWays.Add(new PayWay { Name = "微信" });
+            //    context.Donators.Add(donator);
+            //    context.SaveChanges();
+            //    Console.WriteLine("一对多关系!");
+
+            //    #endregion 6.0 一对多关系
+            //}
+
+            #region 1.0  TPT继承
+
             using (var context = new Context())
             {
-                #region 6.0 一对多关系
-
-                var donator = new Donator
+                var employee = new Employee
                 {
-                    Amount = 6,
-                    Name = "键盘里的鼠标",
-                    DonateDate = DateTime.Parse("2016-4-13"),
+                    Name = "farb",
+                    Email = "farbguo@qq.com",
+                    PhoneNumber = "12345678",
+                    Salary = 1234m
                 };
-                donator.PayWays.Add(new PayWay { Name = "支付宝" });
-                donator.PayWays.Add(new PayWay { Name = "微信" });
-                context.Donators.Add(donator);
-                context.SaveChanges();
-                Console.WriteLine("一对多关系!");
 
-                #endregion 6.0 一对多关系
+                var vendor = new Vendor
+                {
+                    Name = "tkb至简",
+                    Email = "farbguo@outlook.com",
+                    PhoneNumber = "78956131",
+                    HourlyRate = 4567m
+                };
+
+                context.People.Add(employee);
+                context.People.Add(vendor);
+                context.SaveChanges();
+
+                Console.WriteLine("TPT Done");
             }
+
+            #endregion 1.0  TPT继承
 
             Console.Read();
         }

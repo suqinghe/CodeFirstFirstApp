@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using CodeFirstFirstApp.TPT;
+using System.Data.Entity;
 
 namespace CodeFirstFirstApp
 {
@@ -13,9 +14,24 @@ namespace CodeFirstFirstApp
         public DbSet<PayWay> PayWays { get; set; }
         public DbSet<DonatorType> DonatorTypes { get; set; }
 
+        public virtual DbSet<Person> People { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new DonatorMap());
+
+            modelBuilder.Entity<Employee>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("Employees");
+            });
+
+            modelBuilder.Entity<Vendor>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("Vendor");
+            });
+
             base.OnModelCreating(modelBuilder);
         }
     }
